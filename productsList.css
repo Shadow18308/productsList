@@ -1,0 +1,64 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+    background-color: rgb(104, 139, 172);
+}
+form{
+    background-color: rgb(0, 72, 188);
+
+    height: 200px;
+
+    padding: 20px 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-bottom: 5px blue solid;
+}
+input{
+    padding: 10px;
+    border-radius: 5px;
+    outline: 0;
+    border: 2px black solid;
+    margin: 5px
+}
+section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.gg{
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    background-color: rgb(104, 139, 172);
+}
+.btn{
+    padding: 10px;
+    color: black;
+    font-size: 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.getBtn{
+    background-color: aquamarine;
+}
+.postBtn{
+    background-color: coral;
+}
+.card{
+    background-color: cornflowerblue;
+    border: 2px black solid;
+    padding: 5px;
+    margin: 5px;
+    width: fit-content;
+}
