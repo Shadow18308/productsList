@@ -9,25 +9,26 @@ const container= document.querySelector(".container")
 const getBtn=document.querySelector(".getBtn")
 const postBtn=document.querySelector(".postBtn")
 
-
-fetch('https://api.escuelajs.co/api/v1/products')
-.then(res=>res.json())
-.then(res => console.log(res))
-
-
-function getProducts(cb){
-    fetch('https://api.escuelajs.co/api/v1/products')
-    .then(res => cb(res.json()))
+async function getProducts(){
+    return await fetch('https://api.escuelajs.co/api/v1/products')
+    .then(res => res.json())
+    .catch(err=> {throw new err})
 }
+
+getProducts()
+.then(posts=>{
+    renderProducts(posts)
+})
+
+
 function renderProducts(response){
-    console.log(response);
     const fragment = document.createDocumentFragment()
     response.forEach((product)=>{
         const card = createProductTemplate(product)
         fragment.appendChild(card)
     })
     container.appendChild(fragment)
-}https://github.com/Shadow18308/productsList.git
+}
 
 function createProductTemplate({id,title,price}){
     const div=document.createElement('div')
@@ -35,9 +36,9 @@ function createProductTemplate({id,title,price}){
     const cardId=document.createElement('p')
     cardId.textContent=id
     const cardTitle=document.createElement('p')
-    cardId.textContent=title
+    cardTitle.textContent=title
     const cardPrice=document.createElement('p')
-    cardId.textContent=price
+    cardPrice.textContent=price
     div.appendChild(cardId)
     div.appendChild(cardTitle)
     div.appendChild(cardPrice)
@@ -48,18 +49,19 @@ postBtn.addEventListener('click', (e)=>{
     sendProduct()
 })
 
-function sendProduct(){
-    fetch('https://api.escuelajs.co/api/v1/products', {
-      method: 'POST',
-      headers: {'Content-type': 'application/json; charset=UTF-8'},
-      body: JSON.stringify({
-        title:`${titleInput.value}`,
-        price:Number(`${priceInput.value}`),
-        description:`${descriptionInput.value}`,
-        categoryId:Number(`${idInput.value}`),
-        images:[`${urlInput.value}`]
-      })
+async function sendProduct(){
+    return await fetch('https://api.escuelajs.co/api/v1/products',{
+        method: 'POST',
+        headers:{'Content-type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify({
+            title: `${titleInput.value}`,
+            price: Number(`${priceInput.value}`),
+            description: `${descriptionInput.value}`,
+            categoryId: Number(`${idInput.value}`),
+            images: [`${urlInput.value}`],
+        })
     })
-    .then(res=>res.json())
-    .catch(err=>console.log(err))
+    .then(res => res.json())
+    .then(product=>console.log(product))
+    .catch(err => console.log(err))
 }
